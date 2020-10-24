@@ -1,0 +1,12 @@
+version: '3'
+services:
+  skmapi:
+    build:
+      ./skm-api
+    ports:
+      - "11111:11111"
+  skmclient:
+    build:
+      ./skm-client
+    ports:
+      - "22222:22222"
