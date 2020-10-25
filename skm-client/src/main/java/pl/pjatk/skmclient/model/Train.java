@@ -1,6 +1,5 @@
-package pl.pjatk.skmapi.model;
+package pl.pjatk.skmclient.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Train {
@@ -12,41 +11,20 @@ public class Train {
     private int currentStation;
     private String nameOfCurrentStation;
     private int freeSpace;
-    private List<Person> passengers;
+    private int takenSpace;
 
     public Train() {
     }
 
-    public Train(int ID, int numberOfCompartments, int sizeOfCompartment, List<String> railLine, int currentStation) {
+    public Train(int ID, int numberOfCompartments, int sizeOfCompartment, List<String> railLine, int currentStation, String nameOfCurrentStation, int freeSpace, int takenSpace) {
         this.ID = ID;
         this.numberOfCompartments = numberOfCompartments;
         this.sizeOfCompartment = sizeOfCompartment;
         this.railLine = railLine;
         this.currentStation = currentStation;
-        this.nameOfCurrentStation = railLine.get(currentStation);
-        this.freeSpace = numberOfCompartments * sizeOfCompartment;
-        this.passengers = new ArrayList<>();
-    }
-
-    public void removePassengers(int destination){
-        int i = 0;
-        for(Person person : passengers){
-            if(person.getDestination()==destination){
-                passengers.remove(i);
-            }
-            i++;
-        }
-    }
-
-    public void setPassengers(List<Person> passengers) {
-        this.passengers = passengers;
-    }
-    public void addPassenger(Person person) {
-        this.passengers.add(person);
-    }
-
-    public List<Person> getPassengers() {
-        return passengers;
+        this.nameOfCurrentStation = nameOfCurrentStation;
+        this.freeSpace = freeSpace;
+        this.takenSpace = takenSpace;
     }
 
     public int getID() {
@@ -77,6 +55,10 @@ public class Train {
         return freeSpace;
     }
 
+    public int getTakenSpace() {
+        return takenSpace;
+    }
+
     public void setID(int ID) {
         this.ID = ID;
     }
@@ -105,4 +87,7 @@ public class Train {
         this.freeSpace = freeSpace;
     }
 
+    public void setTakenSpace(int takenSpace) {
+        this.takenSpace = takenSpace;
+    }
 }
