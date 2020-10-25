@@ -36,11 +36,24 @@ public class TrainController {
     public void timeTick() {
         for (Train train : trainCatalogue) {
             train.removePassengers(train.getCurrentStation());
-            train.setCurrentStation(train.getCurrentStation() + 1);
-            train.setNameOfCurrentStation(railLine1.get(train.getCurrentStation()));
+
+            if (train.isWait()) {
+                train.setWait(false);
+                break;
+            }
+
             int max = train.getRailLine().size();
-            int min = train.getCurrentStation();
-            train.addPassenger(new Person("Test1", "Test1",new Random().nextInt((max - min) + 1) + min));
+            int min = train.getCurrentStation() + 1;
+            if (min != max) {
+                train.addPassenger(new Person("" + train.getCurrentStation(), "Test1", new Random().nextInt((max - min)) + min));
+            }
+            if (train.getCurrentStation() == train.getRailLine().size() - 1) {
+                train.turnBack();
+                train.setCurrentStation(0);
+            } else {
+                train.setCurrentStation(train.getCurrentStation() + 1);
+                train.setNameOfCurrentStation(train.getRailLine().get(train.getCurrentStation()));
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 package pl.pjatk.skmapi.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Train {
@@ -13,6 +15,7 @@ public class Train {
     private String nameOfCurrentStation;
     private int freeSpace;
     private List<Person> passengers;
+    private boolean wait;
 
     public Train() {
     }
@@ -26,16 +29,31 @@ public class Train {
         this.nameOfCurrentStation = railLine.get(currentStation);
         this.freeSpace = numberOfCompartments * sizeOfCompartment;
         this.passengers = new ArrayList<>();
+        this.wait=false;
+    }
+
+    public void setWait(boolean wait) {
+        this.wait = wait;
+    }
+
+    public boolean isWait() {
+        return wait;
+    }
+
+    private static<T> List<T> reverseList(List<T> list)
+    {
+        List<T> reverse = new ArrayList<>(list);
+        Collections.reverse(reverse);
+        return reverse;
+    }
+
+    public void turnBack(){
+        railLine = reverseList(railLine);
+        setWait(true);
     }
 
     public void removePassengers(int destination){
-        int i = 0;
-        for(Person person : passengers){
-            if(person.getDestination()==destination){
-                passengers.remove(i);
-            }
-            i++;
-        }
+        passengers.removeIf(person -> person.getDestination() == destination);
     }
 
     public void setPassengers(List<Person> passengers) {
