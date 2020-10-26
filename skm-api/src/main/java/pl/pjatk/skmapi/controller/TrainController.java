@@ -13,9 +13,14 @@ import java.util.Random;
 @RestController
 public class TrainController {
     private List<Train> trainCatalogue;
-    private List<String> railLine1 = Arrays.asList("Gdansk Glowny", "Gdansk Wrzeszcz", "Gdansk Oliwa", "Sopot",
+    private final List<String> railLine1 = Arrays.asList("Gdansk Glowny", "Gdansk Wrzeszcz", "Gdansk Oliwa", "Sopot",
             "Gdynia Orlowo", "Gdynia Glowna", "Gdynia Chylonia");
-
+    private final List<String> names = Arrays.asList("Letty", "Marion", "Bethann", "Piedad", "Tyrell", "Asia", "Shirely",
+            "Hyo", "Kimbra", "Zenobia", "Delores", "Noble", "Rosario", "Louella", "Jackie", "Jc", "Charis", "Pamala",
+            "Domitila", "Paul");
+    private final List<String> lastName = Arrays.asList("Oconnor" + "Thomas", "Coffey", "Escobar", "Conrad", "Erickson",
+            "Watson", "Hensley", "Boone", "Heath", "Riggs", "Rivers", "Clayton", "Robbins", "Galloway", "Bell", "Mason",
+            "Ingram", "Thompson", "Wallace");
 
     public TrainController(@Value("${train.numberOfTrains}") final Integer numberOfTrains,
                            @Value("${train.numberOfCompartments}") final Integer numberOfCompartments,
@@ -49,7 +54,11 @@ public class TrainController {
             int max = train.getRailLine().size();
             int min = train.getCurrentStation() + 1;
             if (min != max) {
-                train.addPassenger(new Person("" + train.getCurrentStation(), "Test1", new Random().nextInt((max - min)) + min));
+                for (int i = 0; i < new Random().nextInt((8 - 2) + 2); i++) {
+                    train.addPassenger(new Person(names.get(new Random().nextInt(names.size())),
+                            lastName.get(new Random().nextInt(lastName.size())), train.getCurrentStation(),
+                            new Random().nextInt((max - min)) + min));
+                }
             }
             if (train.getCurrentStation() == train.getRailLine().size() - 1) {
                 train.turnBack();
