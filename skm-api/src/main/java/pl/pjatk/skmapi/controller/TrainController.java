@@ -1,5 +1,6 @@
 package pl.pjatk.skmapi.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.pjatk.skmapi.model.Person;
 import pl.pjatk.skmapi.model.Train;
@@ -15,11 +16,14 @@ public class TrainController {
     private List<String> railLine1 = Arrays.asList("Gdansk Glowny", "Gdansk Wrzeszcz", "Gdansk Oliwa", "Sopot",
             "Gdynia Orlowo", "Gdynia Glowna", "Gdynia Chylonia");
 
-    public TrainController() {
+
+    public TrainController(@Value("${train.numberOfTrains}") final Integer numberOfTrains,
+                           @Value("${train.numberOfCompartments}") final Integer numberOfCompartments,
+                           @Value("${train.sizeOfCompartment}") final Integer sizeOfCompartment) {
         trainCatalogue = new ArrayList<>();
-        trainCatalogue.add(new Train(0, 6, 4, railLine1, 0));
-        trainCatalogue.add(new Train(1, 8, 4, railLine1, 3));
-        trainCatalogue.add(new Train(2, 10, 4, railLine1, 4));
+        for (int i = 0; i < numberOfTrains; i++) {
+            trainCatalogue.add(new Train(i, numberOfCompartments, sizeOfCompartment, railLine1, new Random().nextInt((railLine1.size()))));
+        }
     }
 
     @GetMapping("/train")
