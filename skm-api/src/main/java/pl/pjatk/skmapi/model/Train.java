@@ -53,7 +53,14 @@ public class Train {
     }
 
     public void removePassengers(int destination){
-        passengers.removeIf(person -> person.getDestination() == destination);
+        for(int i = 0; i<passengers.size();i++){
+            if(passengers.get(i).getDestination()==destination){
+                passengers.remove(i);
+                freeSpace+=1;
+            }
+        }
+        //passengers.removeIf(person -> person.getDestination() == destination);
+
     }
 
     public void setPassengers(List<Person> passengers) {

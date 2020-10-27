@@ -13,8 +13,9 @@ import java.util.Random;
 @RestController
 public class TrainController {
     private List<Train> trainCatalogue;
-    private final List<String> railLine1 = Arrays.asList("Gdansk Glowny", "Gdansk Wrzeszcz", "Gdansk Oliwa", "Sopot",
-            "Gdynia Orlowo", "Gdynia Glowna", "Gdynia Chylonia");
+    private final List<String> railLine1 = Arrays.asList("Gdansk Srodmiescie", "Gdansk Glowny", "Gdansk Stocznia",
+            "Gdansk Politechnika", "Gdansk Wrzeszcz", "Gdansk Zaspa", "Gdansk Oliwa", "Sopot Wiscigi", "Sopot", "Gdynia Redlowo",
+            "Gdynia Orlowo", "Gdynia Glowna", "Gdynia Stocznia", "Gdynia Grabowek", "Gdynia Leszczynki", "Gdynia Chylonia");
     private final List<String> names = Arrays.asList("Letty", "Marion", "Bethann", "Piedad", "Tyrell", "Asia", "Shirely",
             "Hyo", "Kimbra", "Zenobia", "Delores", "Noble", "Rosario", "Louella", "Jackie", "Jc", "Charis", "Pamala",
             "Domitila", "Paul");
@@ -51,13 +52,17 @@ public class TrainController {
                 break;
             }
 
-            int max = train.getRailLine().size();
-            int min = train.getCurrentStation() + 1;
-            if (min != max) {
-                for (int i = 0; i < new Random().nextInt((8 - 2) + 2); i++) {
-                    train.addPassenger(new Person(names.get(new Random().nextInt(names.size())),
-                            lastName.get(new Random().nextInt(lastName.size())), train.getCurrentStation(),
-                            new Random().nextInt((max - min)) + min));
+            if (train.getFreeSpace() > 0) {
+                int max = train.getRailLine().size();
+                int min = train.getCurrentStation() + 1;
+                if (min != max) {
+                    for (int i = 0; i < new Random().nextInt((8 - 2) + 2); i++) {
+                        train.addPassenger(new Person(names.get(new Random().nextInt(names.size())),
+                                lastName.get(new Random().nextInt(lastName.size())), train.getCurrentStation(),
+                                new Random().nextInt((max - min)) + min));
+                        train.setFreeSpace(train.getFreeSpace() - 1);
+                        if (train.getFreeSpace() == 0) break;
+                    }
                 }
             }
             if (train.getCurrentStation() == train.getRailLine().size() - 1) {
