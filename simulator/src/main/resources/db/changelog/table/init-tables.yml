@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2020_12_10-initial-tables
+      author: jedrzej.bednarczyk
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: trains, compartments, people
+      changes:
+        - createTable:
+            tableName: trains
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: train_id_pkey
+              - column:
+                  name: current_station
+                  type: INT
+        - createTable:
+            tableName: compartments
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: compartment_id_pkey
+              - column:
+                  name: compartment_size
+                  type: INT
+              - column:
+                  name: train_id
+                  type: INT
+                  constraints:
+                    foreignKeyName: compartment_train_id_fkey
+                    references: trains(id)
+        - createTable:
+            tableName: people
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: person_id_pkey
+              - column:
+                  name: first_name
+                  type: VARCHAR(250)
+              - column:
+                  name: last_name
+                  type: VARCHAR(250)
+              - column:
+                  name: destination
+                  type: INT
+              - column:
+                  name: compartment_id
+                  type: INT
+                  constraints:
+                    foreignKeyName: person_compartment_id_fkey
+                    references: compartments(id)

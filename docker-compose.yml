@@ -1,12 +1,19 @@
 version: '3'
 services:
-  skmapi:
-    build:
-      ./skm-api
+  simulator:
+    build: ./simulator
     ports:
       - "11111:11111"
-  skmclient:
-    build:
-      ./skm-client
+    restart: on-failure:5
+    depends_on:
+      - skmdb
+  skmdb:
+    build: ./db
     ports:
-      - "22222:22222"
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_DATABASE: carseller
+      MYSQL_USER: salesman
+      MYSQL_PASSWORD: pwd

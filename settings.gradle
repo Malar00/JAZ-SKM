@@ -1,5 +1,4 @@
-rootProject.name = 'jaz-SKM'
+rootProject.name = 'skm-reference'
 
-include 'skm-api'
-include 'skm-client'
+include 'simulator'
 

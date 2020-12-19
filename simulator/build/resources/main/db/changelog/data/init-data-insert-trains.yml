@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id:  2020_12_10-insert-initial-data-trains
+      author:  jedrzej.bednarczyk
+      changes:
+        - insert:
+            tableName: trains
+            columns:
+              - column:
+                  name: current_station
+                  value: 1
+        - insert:
+            tableName: trains
+            columns:
+              - column:
+                  name: current_station
+                  value: 3
