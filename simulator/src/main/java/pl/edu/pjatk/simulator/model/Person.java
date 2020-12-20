@@ -16,7 +16,7 @@ public class Person implements DbEntity {
     private String first_name;
     private String last_name;
     private int destination;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Compartment compartment;
 
 
@@ -49,6 +49,10 @@ public class Person implements DbEntity {
 
     public void setCompartment(Compartment compartment) {
         this.compartment = compartment;
+    }
+
+    public Long getCompartmentId() {
+        return compartment.getId();
     }
 
     public String getFirst_name() {

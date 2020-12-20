@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.pjatk.simulator.repository.CompartmentRepository;
 import pl.edu.pjatk.simulator.service.CompartmentService;
 import pl.edu.pjatk.simulator.service.DbEntity;
+import pl.edu.pjatk.simulator.util.PeopleGen;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -19,33 +20,32 @@ public class Compartment implements DbEntity {
     private Long id;
     @Column(name = "compartment_size")
     private int compartment_size;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Train train;
-    @OneToMany(mappedBy = "compartment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "compartment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Person> people;
 
     public Compartment() {
-        //this.people = new HashSet<>();
-        //people.add(new Person("aa","bb",1));
-        //addPerson(new Person("bb","qq",4));
-        System.out.println(people);
     }
 
-    public Map<String, Object> mapToJson(){
+    public Map<String, Object> mapToJson() {
         Map<String, Object> responseObj = new HashMap<String, Object>();
         responseObj.put("id", id);
         responseObj.put("compartment_size", compartment_size);
-        responseObj.put("free_space", compartment_size-people.size());
+        responseObj.put("free_space", compartment_size - people.size());
         return responseObj;
     }
 
     public Person addPerson(Person person) {
-        //System.out.println("person add");
-        //if(people == null){
-        //  people = new HashSet<>();
-        //}
+        //if(compartment_size-people.size()>0) {
+        //Person person = new Person("aa","bb",1);
+        //Person person = PeopleGen.genPerson(getTrain());
+        this.people.add(person);
         return person;
+        //}
     }
+
+
 
     /*public void getOff(int station) {
         people.forEach(c -> {

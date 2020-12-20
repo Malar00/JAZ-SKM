@@ -1,26 +1,23 @@
 package pl.edu.pjatk.simulator.service;
 
 import liquibase.pro.packaged.A;
+import liquibase.pro.packaged.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.simulator.model.Compartment;
 import pl.edu.pjatk.simulator.model.Person;
 import pl.edu.pjatk.simulator.model.Station;
 import pl.edu.pjatk.simulator.model.Train;
+import pl.edu.pjatk.simulator.repository.PersonRepository;
 import pl.edu.pjatk.simulator.repository.TrainRepository;
 import pl.edu.pjatk.simulator.repository.CompartmentRepository;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static pl.edu.pjatk.simulator.util.Utils.fallbackIfNull;
 
 @Service
 public class TrainService extends CrudService<Train> {
-    @Autowired
-    private TrainRepository trainRepository;
     @Autowired
     private CompartmentRepository compartmentRepository;
 
@@ -29,14 +26,24 @@ public class TrainService extends CrudService<Train> {
     }
 
     public void moveTimeForward() {
-        //System.out.println("train move start");
-        trainRepository.findAll().forEach(t -> {
-            //Person person = new Person("aa","bb",1);
-            //t.getCompartments().forEach(c -> {
-              //  compartmentRepository.getOne(c.getId()).addPerson(person);
-            //});
+        System.out.println("train move start");
+        Person person = new Person();
+        person.setFirst_name("name");
+        person.setLast_name("lname");
+        person.setDestination(4);
+
+        Train train = repository.getOne(1L);
+        Set<Compartment> compartments = train.getCompartments();
+        compartments.forEach(c -> {
+            Set<Person> people = c.getPeople();
+            person.setCompartment(c);
+            people.add(person);
+            c.setPeople(people);
         });
-        //System.out.println("train moved");
+        train.setCompartments(compartments);
+        createOrUpdate(train);
+
+        System.out.println("train moved");
     }
 
     @Override

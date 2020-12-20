@@ -14,7 +14,7 @@ public class Train implements DbEntity {
     private Long id;
     @Column(name = "current_station")
     private int current_station;
-    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Compartment> compartments;
     @Transient
     private Station railLine;
