@@ -6,7 +6,9 @@ import pl.edu.pjatk.simulator.model.Compartment;
 import pl.edu.pjatk.simulator.model.Person;
 import pl.edu.pjatk.simulator.repository.PersonRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static pl.edu.pjatk.simulator.util.Utils.fallbackIfNull;
 
@@ -16,6 +18,7 @@ public class PersonService extends CrudService<Person> {
     public PersonService(PersonRepository repository) {
         super(repository);
     }
+
 
     @Override
     public Person createOrUpdate(Person updateEntity) {

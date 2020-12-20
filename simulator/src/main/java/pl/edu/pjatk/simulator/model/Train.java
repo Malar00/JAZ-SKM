@@ -15,13 +15,20 @@ public class Train implements DbEntity {
     @Column(name = "current_station")
     private int current_station;
     private boolean going_back;
+    private int wait_time;
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Compartment> compartments;
-    //@Transient
-    //private Station railLine;
+
 
     public Train() {
-        //this.railLine = Station.values()[current_station];
+    }
+
+    public int getWait_time() {
+        return wait_time;
+    }
+
+    public void setWait_time(int wait_time) {
+        this.wait_time = wait_time;
     }
 
     public boolean getGoing_back() {

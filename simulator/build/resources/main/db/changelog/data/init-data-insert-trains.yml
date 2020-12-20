@@ -12,6 +12,9 @@ databaseChangeLog:
               - column:
                   name: going_back
                   valueBoolean: false
+              - column:
+                  name: wait_time
+                  value: 1
         - insert:
             tableName: trains
             columns:
@@ -21,3 +24,6 @@ databaseChangeLog:
               - column:
                   name: going_back
                   valueBoolean: true
+              - column:
+                  name: wait_time
+                  value: 0

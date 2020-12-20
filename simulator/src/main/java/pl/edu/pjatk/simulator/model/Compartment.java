@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.pjatk.simulator.repository.CompartmentRepository;
 import pl.edu.pjatk.simulator.service.CompartmentService;
 import pl.edu.pjatk.simulator.service.DbEntity;
+import pl.edu.pjatk.simulator.service.PersonService;
 import pl.edu.pjatk.simulator.util.PeopleGen;
 
 import javax.persistence.*;
@@ -33,28 +34,13 @@ public class Compartment implements DbEntity {
         responseObj.put("id", id);
         responseObj.put("compartment_size", compartment_size);
         responseObj.put("free_space", compartment_size - people.size());
+        responseObj.put("people", people.stream().map(Person::mapToJson));
         return responseObj;
     }
 
-    public Person addPerson(Person person) {
-        //if(compartment_size-people.size()>0) {
-        //Person person = new Person("aa","bb",1);
-        //Person person = PeopleGen.genPerson(getTrain());
-        this.people.add(person);
-        return person;
-        //}
+    public void deletePerson(Person person){
+        people.remove(person);
     }
-
-
-
-    /*public void getOff(int station) {
-        people.forEach(c -> {
-            if (c.getDestination() == station){
-                people.remove(c);
-            }
-        });
-
-    }*/
 
     public void setId(Long id) {
         this.id = id;

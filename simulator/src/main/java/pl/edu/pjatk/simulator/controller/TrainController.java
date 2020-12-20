@@ -30,6 +30,7 @@ public class TrainController extends CrudController<Train> {
             payload.put("rail_line", Station.values()[train.getCurrent_station()]);
             payload.put("current_station", train.getCurrent_station());
             payload.put("going_back", train.getGoing_back());
+            payload.put("waiting", train.getWait_time());
             payload.put("compartments", train.getCompartments().stream().map(Compartment::mapToJson));
 
             return payload;

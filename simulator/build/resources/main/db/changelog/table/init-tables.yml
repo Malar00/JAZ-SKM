@@ -25,6 +25,9 @@ databaseChangeLog:
               - column:
                   name: going_back
                   type: BIT(1)
+              - column:
+                  name: wait_time
+                  type: INT
         - createTable:
             tableName: compartments
             columns:

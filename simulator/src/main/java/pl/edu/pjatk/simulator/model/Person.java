@@ -36,6 +36,7 @@ public class Person implements DbEntity {
         responseObj.put("id", id);
         responseObj.put("first_name", first_name);
         responseObj.put("lastname_name", last_name);
+        responseObj.put("destination", destination);
         return responseObj;
     }
 
