@@ -22,6 +22,9 @@ databaseChangeLog:
               - column:
                   name: current_station
                   type: INT
+              - column:
+                  name: going_back
+                  type: BIT(1)
         - createTable:
             tableName: compartments
             columns:

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id:  2020_12_10-insert-initial-data-trains
-      author:  jedrzej.bednarczyk
+      id: 2020_12_10-insert-initial-data-trains
+      author: jedrzej.bednarczyk
       changes:
         - insert:
             tableName: trains
@@ -9,9 +9,15 @@ databaseChangeLog:
               - column:
                   name: current_station
                   value: 1
+              - column:
+                  name: going_back
+                  valueBoolean: false
         - insert:
             tableName: trains
             columns:
               - column:
                   name: current_station
-                  value: 3
+                  value: 4
+              - column:
+                  name: going_back
+                  valueBoolean: true

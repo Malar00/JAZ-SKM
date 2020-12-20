@@ -11,6 +11,7 @@ import pl.edu.pjatk.simulator.model.Train;
 import pl.edu.pjatk.simulator.repository.PersonRepository;
 import pl.edu.pjatk.simulator.repository.TrainRepository;
 import pl.edu.pjatk.simulator.repository.CompartmentRepository;
+import pl.edu.pjatk.simulator.util.PeopleGen;
 
 import java.util.*;
 
@@ -27,22 +28,40 @@ public class TrainService extends CrudService<Train> {
 
     public void moveTimeForward() {
         System.out.println("train move start");
-        Person person = new Person();
-        person.setFirst_name("name");
-        person.setLast_name("lname");
-        person.setDestination(4);
 
-        Train train = repository.getOne(1L);
-        Set<Compartment> compartments = train.getCompartments();
-        compartments.forEach(c -> {
-            Set<Person> people = c.getPeople();
-            person.setCompartment(c);
-            people.add(person);
-            c.setPeople(people);
+        List<Train> trains = repository.findAll();
+        trains.forEach(t -> {
+
+            // TODO:Waiting system
+            //Turning around at waiting stations
+            if (Station.values()[t.getCurrent_station()].getWaitTime() == 2) {
+                t.setGoing_back(!t.getGoing_back());
+            }
+
+            Set<Compartment> compartments = t.getCompartments();
+            compartments.forEach(c -> {
+
+                //Generating people at every station
+                if (c.getCompartment_size() > c.getPeople().size()) {
+                    Person person = PeopleGen.genPerson(t);
+
+                    Set<Person> people = c.getPeople();
+                    person.setCompartment(c);
+                    people.add(person);
+                    c.setPeople(people);
+                }
+            });
+            
+            //Deciding the direction of the train
+            int step = 1;
+            if (t.getGoing_back()) {
+                step = -1;
+            }
+            t.setCompartments(compartments);
+            t.setCurrent_station(t.getCurrent_station() + step);
+
+            createOrUpdate(t);
         });
-        train.setCompartments(compartments);
-        createOrUpdate(train);
-
         System.out.println("train moved");
     }
 
@@ -66,6 +85,10 @@ public class TrainService extends CrudService<Train> {
 
             dbEntity.setCompartments(fallbackIfNull(updateEntity.getCompartments(), dbEntity.getCompartments()));
             dbEntity.setCompartments(fallbackIfNull(updateEntity.getCompartments(), dbEntity.getCompartments()));
+
+            dbEntity.setGoing_back(fallbackIfNull(updateEntity.getGoing_back(), dbEntity.getGoing_back()));
+            dbEntity.setCurrent_station(fallbackIfNull(updateEntity.getCurrent_station(), dbEntity.getCurrent_station()));
+
             var insertedTrain = repository.save(dbEntity);
 
             Set<Compartment> compartments = updateEntity.getCompartments();

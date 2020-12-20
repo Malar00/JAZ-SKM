@@ -1,6 +1,7 @@
 package pl.edu.pjatk.simulator.util;
 
 import pl.edu.pjatk.simulator.model.Person;
+import pl.edu.pjatk.simulator.model.Station;
 import pl.edu.pjatk.simulator.model.Train;
 
 import java.util.Arrays;
@@ -16,8 +17,17 @@ public class PeopleGen {
             "Ingram", "Thompson", "Wallace");
 
     public static Person genPerson(Train train) {
-        int max = train.getRailLine().size();
-        int min = train.getCurrent_station()+1;
+        int max, min;
+        boolean goingBack = train.getGoing_back();
+
+        if(goingBack) {
+            max = train.getCurrent_station();
+            min = 0;
+        }else{
+            max = Station.values().length;
+            min = train.getCurrent_station() + 1;
+        }
+
         return new Person(names.get(new Random().nextInt(names.size())),
                 lastName.get(new Random().nextInt(lastName.size())),
                 new Random().nextInt((max - min)) + min);

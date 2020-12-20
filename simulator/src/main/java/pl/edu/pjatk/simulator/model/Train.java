@@ -14,24 +14,22 @@ public class Train implements DbEntity {
     private Long id;
     @Column(name = "current_station")
     private int current_station;
+    private boolean going_back;
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Compartment> compartments;
-    @Transient
-    private Station railLine;
-    @Transient
-    private boolean goingBack;
+    //@Transient
+    //private Station railLine;
 
     public Train() {
-        railLine = Station.values()[current_station];
-        goingBack = false;
+        //this.railLine = Station.values()[current_station];
     }
 
-    public Station getRailLine() {
-        return railLine;
+    public boolean getGoing_back() {
+        return going_back;
     }
 
-    public void setRailLine(Station railLine) {
-        this.railLine = railLine;
+    public void setGoing_back(boolean going_back) {
+        this.going_back = going_back;
     }
 
     public int getCurrent_station() {
@@ -42,13 +40,6 @@ public class Train implements DbEntity {
         this.current_station = currentStation;
     }
 
-    public boolean isGoingBack() {
-        return goingBack;
-    }
-
-    public void setGoingBack(boolean goingBack) {
-        this.goingBack = goingBack;
-    }
 
 
     public void setId(Long id) {

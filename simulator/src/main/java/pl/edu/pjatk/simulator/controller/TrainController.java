@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pjatk.simulator.model.Compartment;
 import pl.edu.pjatk.simulator.model.Person;
+import pl.edu.pjatk.simulator.model.Station;
 import pl.edu.pjatk.simulator.model.Train;
 import pl.edu.pjatk.simulator.service.TrainService;
 
@@ -26,7 +27,9 @@ public class TrainController extends CrudController<Train> {
         return train -> {
             var payload = new LinkedHashMap<String, Object>();
             payload.put("id", train.getId());
+            payload.put("rail_line", Station.values()[train.getCurrent_station()]);
             payload.put("current_station", train.getCurrent_station());
+            payload.put("going_back", train.getGoing_back());
             payload.put("compartments", train.getCompartments().stream().map(Compartment::mapToJson));
 
             return payload;
