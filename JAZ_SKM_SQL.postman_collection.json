@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "affea66a-8a16-4c82-964d-86c95aad97d2",
+		"name": "JAZ_SKM_SQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET trains",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/trains?size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"trains"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				},
+				"description": "GET CARS"
+			},
+			"response": []
+		},
+		{
+			"name": "GET trains page 0, size 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/trains?page=0&size=3&sort=id",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"trains"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						},
+						{
+							"key": "sort",
+							"value": "id"
+						}
+					]
+				},
+				"description": "GET CARS"
+			},
+			"response": []
+		},
+		{
+			"name": "GET skm go Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/skm/go",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"skm",
+						"go"
+					]
+				},
+				"description": "GET CARS"
+			},
+			"response": []
+		},
+		{
+			"name": "POST trains",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"current_station\": 6,\r\n    \"going_back\": false,\r\n    \"waiting\": 1,\r\n    \"compartments\": [\r\n        {\r\n            \"compartment_size\": 2,\r\n            \"people\": [\r\n                {\r\n                    \"destination\": 4,\r\n                    \"lastname_name\": \"TestLast\",\r\n                    \"first_name\": \"TestName\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/trains",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"trains"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE trains",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"current_station\": 6,\r\n    \"going_back\": false,\r\n    \"waiting\": 1,\r\n    \"compartments\": [\r\n        {\r\n            \"id\": 4,\r\n            \"compartment_size\": 2,\r\n            \"train_id\": 4,\r\n            \"people\": [\r\n                {\r\n                    \"id\": 4,\r\n                    \"destination\": 4,\r\n                    \"lastname_name\": \"TestLast\",\r\n                    \"first_name\": \"TestName\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/trains",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"trains"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE trains",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/trains/1",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"trains",
+						"1"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "GET compartments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/compartments",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"compartments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST copartment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"compartment_size\": 2,\r\n    \"people\": [\r\n        {\r\n            \"destination\": 4,\r\n            \"lastname_name\": \"TestLast\",\r\n            \"first_name\": \"TestName\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/compartments",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"compartments"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE compartment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/compartments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"compartments",
+						"1"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE compartment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 3,\r\n    \"compartment_size\": 2,\r\n    \"people\": [\r\n        {\r\n            \"id\": 2,\r\n            \"destination\": 4,\r\n            \"lastname_name\": \"TestLast\",\r\n            \"first_name\": \"TestName\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/compartments",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"compartments"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "GET people",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/people?size=20",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"people"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST person",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Post\",\r\n    \"last_name\": \"Test\",\r\n    \"destination\": 5,\r\n    \"compartment\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/people",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"people"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE person",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"first_name\": \"Post\",\r\n    \"last_name\": \"Test\",\r\n    \"destination\": 5,\r\n    \"compartment\": {\r\n        \"id\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/people",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"people"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE person",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/people/1",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"people",
+						"1"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		}
+	]
+}
