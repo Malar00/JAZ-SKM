@@ -1,11 +1,9 @@
 package pl.edu.pjatk.simulator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pjatk.simulator.model.Compartment;
-import pl.edu.pjatk.simulator.model.Person;
 import pl.edu.pjatk.simulator.model.Station;
 import pl.edu.pjatk.simulator.model.Train;
 import pl.edu.pjatk.simulator.service.TrainService;

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: 2020_12_10-insert-initial-data-trains
-      author: jedrzej.bednarczyk
+      id: 2020_12_21-insert-initial-data-trains
+      author: jan.sitarski
       changes:
         - insert:
             tableName: trains

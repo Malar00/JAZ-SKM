@@ -1,6 +1,5 @@
 package pl.edu.pjatk.simulator.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.edu.pjatk.simulator.service.DbEntity;
 
 import javax.persistence.*;
@@ -20,18 +19,19 @@ public class Person implements DbEntity {
     private Compartment compartment;
 
 
-
     public Person(String first_name, String last_name, int destination) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.destination = destination;
     }
 
+
     public Person() {
 
     }
 
-    public Map<String, Object> mapToJson(){
+
+    public Map<String, Object> mapToJson() {
         Map<String, Object> responseObj = new HashMap<String, Object>();
         responseObj.put("id", id);
         responseObj.put("first_name", first_name);
@@ -79,7 +79,6 @@ public class Person implements DbEntity {
     public void setDestination(int destination) {
         this.destination = destination;
     }
-
 
 
     @Override

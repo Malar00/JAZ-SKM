@@ -1,17 +1,11 @@
 package pl.edu.pjatk.simulator.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import pl.edu.pjatk.simulator.repository.CompartmentRepository;
-import pl.edu.pjatk.simulator.service.CompartmentService;
 import pl.edu.pjatk.simulator.service.DbEntity;
-import pl.edu.pjatk.simulator.service.PersonService;
-import pl.edu.pjatk.simulator.util.PeopleGen;
 
 import javax.persistence.*;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Entity
 @Table(name = "compartments")
@@ -24,9 +18,15 @@ public class Compartment implements DbEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Train train;
     @OneToMany(mappedBy = "compartment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Person> people;
+    private List<Person> people;
 
     public Compartment() {
+    }
+
+    public Compartment(int compartment_size, Train train, List<Person> people) {
+        this.compartment_size = compartment_size;
+        this.train = train;
+        this.people = people;
     }
 
     public Map<String, Object> mapToJson() {
@@ -36,10 +36,6 @@ public class Compartment implements DbEntity {
         responseObj.put("free_space", compartment_size - people.size());
         responseObj.put("people", people.stream().map(Person::mapToJson));
         return responseObj;
-    }
-
-    public void deletePerson(Person person){
-        people.remove(person);
     }
 
     public void setId(Long id) {
@@ -62,11 +58,11 @@ public class Compartment implements DbEntity {
         this.train = train;
     }
 
-    public Set<Person> getPeople() {
+    public List<Person> getPeople() {
         return people;
     }
 
-    public void setPeople(Set<Person> people) {
+    public void setPeople(List<Person> people) {
         this.people = people;
     }
 

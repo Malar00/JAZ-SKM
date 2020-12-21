@@ -1,8 +1,5 @@
 package pl.edu.pjatk.simulator.model;
 
-
-import java.util.HashMap;
-
 public enum Station {
     GDYNIA_GLOWNA(2),
     GDYNIA_SW_MAKSYMILIANA(0),
@@ -21,8 +18,6 @@ public enum Station {
     GDANSK_GLOWNY(2);
 
     private int waitTime;
-    private HashMap<Station, Integer> stationHashMap = new HashMap<>();
-
 
     Station(int waitTime) {
         this.waitTime = waitTime;
@@ -30,10 +25,6 @@ public enum Station {
 
     public int getWaitTime() {
         return waitTime;
-    }
-
-    public int size(){
-        return values().length;
     }
 
 }

@@ -8,27 +8,26 @@ import pl.edu.pjatk.simulator.repository.CompartmentRepository;
 import pl.edu.pjatk.simulator.repository.PersonRepository;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static pl.edu.pjatk.simulator.util.Utils.fallbackIfNull;
 
 @Service
 public class CompartmentService extends CrudService<Compartment> {
-    @Autowired
-    private CompartmentRepository compartmentRepository;
-    @Autowired
     private PersonRepository personRepository;
 
-    public CompartmentService(CompartmentRepository repository) {
+    @Autowired
+    public CompartmentService(CompartmentRepository repository, PersonRepository personRepository) {
         super(repository);
+        this.personRepository = personRepository;
     }
 
     @Override
     public Compartment createOrUpdate(Compartment updateEntity) {
         if (updateEntity.getId() == null) {
             var people = updateEntity.getPeople();
-            updateEntity.setPeople(Collections.emptySet());
+            updateEntity.setPeople(Collections.emptyList());
             Compartment insertedCompartment = repository.save(updateEntity);
 
             people.forEach(p->p.setCompartment(insertedCompartment));
@@ -45,7 +44,7 @@ public class CompartmentService extends CrudService<Compartment> {
             dbEntity.setTrain(fallbackIfNull(updateEntity.getTrain(), dbEntity.getTrain()));
             var insertedCompartments = repository.save(dbEntity);
 
-            Set<Person> people = updateEntity.getPeople();
+            List<Person> people = updateEntity.getPeople();
             people.forEach(p->p.setCompartment(dbEntity));
             personRepository.saveAll(people);
 

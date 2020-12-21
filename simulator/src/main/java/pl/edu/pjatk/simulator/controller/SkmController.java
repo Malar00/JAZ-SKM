@@ -23,16 +23,13 @@ public class SkmController {
 
     @GetMapping()
     @RequestMapping("/go")
-    public /*ResponseEntity<List<Map<String, Object>>>*/ void moveTime() {
-            System.out.println("skm started");
-            skmService.moveTime();
-            System.out.println("skm ended");
-
-        /*try {
+    public ResponseEntity<List<Map<String, Object>>> moveTime() {
+        try {
+            skmService.moveTimeForward();
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }*/
+        }
     }
 
 }

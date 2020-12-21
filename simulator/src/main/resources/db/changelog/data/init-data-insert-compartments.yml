@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id:  2020_12_10-insert-initial-data-compartments
-      author:  jedrzej.bednarczyk
+      id:  2020_12_20-insert-initial-data-compartments
+      author:  jan.sitarski
       changes:
         - sqlFile:
             splitStatements: true

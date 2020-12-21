@@ -3,7 +3,7 @@ package pl.edu.pjatk.simulator.model;
 import pl.edu.pjatk.simulator.service.DbEntity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 
 @Entity
@@ -16,11 +16,17 @@ public class Train implements DbEntity {
     private int current_station;
     private boolean going_back;
     private int wait_time;
-    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Compartment> compartments;
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Compartment> compartments;
 
 
     public Train() {
+    }
+
+    public Train(int current_station, boolean going_back, int wait_time) {
+        this.current_station = current_station;
+        this.going_back = going_back;
+        this.wait_time = wait_time;
     }
 
     public int getWait_time() {
@@ -47,17 +53,15 @@ public class Train implements DbEntity {
         this.current_station = currentStation;
     }
 
-
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Set<Compartment> getCompartments() {
+    public List<Compartment> getCompartments() {
         return compartments;
     }
 
-    public void setCompartments(Set<Compartment> compartments) {
+    public void setCompartments(List<Compartment> compartments) {
         this.compartments = compartments;
     }
 
