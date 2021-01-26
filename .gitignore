@@ -3,3 +3,5 @@
 .gradle
 .idea
 /workspace.xml
+/build/
+/simulator/build/
