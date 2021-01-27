@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
+import pl.edu.pjatk.simulator.service.UserService;
 
 @Component
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {

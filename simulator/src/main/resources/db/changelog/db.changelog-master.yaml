@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/data/init-data-insert-compartments.yml
   - include:
       file: db/changelog/data/init-data-insert-people.yml
+  - include:
+      file: /db/changelog/table/init-auth.yml

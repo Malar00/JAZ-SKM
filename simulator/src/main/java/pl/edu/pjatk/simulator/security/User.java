@@ -1,26 +1,54 @@
 package pl.edu.pjatk.simulator.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.edu.pjatk.simulator.service.DbEntity;
 
+import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
-public class User implements UserDetails {
+@Entity
+@Table(name = "users")
+public class User implements UserDetails, DbEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
     private String password;
-    private Collection<GrantedAuthority> authorities;
+    private String authority;
 
     public User() {}
 
-    public User(String username, String password, Collection<GrantedAuthority> authorities) {
+    public User(String username, String password, String authorities) {
         this.username = username;
         this.password = password;
-        this.authorities = authorities;
+        this.authority = authorities;
     }
+
+    //@Override
+    //public Collection<? extends GrantedAuthority> getAuthorities() {
+    //    return authorities;
+    //}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        System.out.println(authority);
+        return Arrays.stream(this.authority.split(",")).map(String::trim).filter(authority -> !authority.equals("")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
+
+    public void addAuthority(GrantedAuthority authority) {
+        String trimmedAuthority = authority.getAuthority().trim();
+        String currentAuthority = this.authority == null ? "" : (this.authority + ",");
+        this.authority = currentAuthority + trimmedAuthority;
+    }
+
+    public void removeAuthority(GrantedAuthority authority) {
+        String auth = authority.getAuthority().trim();
+        String newAuthority = this.authority.replace(auth, "").replace(",,", "").trim();
+        this.authority = newAuthority;
     }
 
     @Override
@@ -61,7 +89,20 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setAuthorities(Collection<GrantedAuthority> authorities) {
-        this.authorities = authorities;
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 }
