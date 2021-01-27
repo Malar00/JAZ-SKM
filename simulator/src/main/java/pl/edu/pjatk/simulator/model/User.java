@@ -1,4 +1,4 @@
-package pl.edu.pjatk.simulator.security;
+package pl.edu.pjatk.simulator.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,27 +28,10 @@ public class User implements UserDetails, DbEntity {
         this.authority = authorities;
     }
 
-    //@Override
-    //public Collection<? extends GrantedAuthority> getAuthorities() {
-    //    return authorities;
-    //}
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         System.out.println(authority);
         return Arrays.stream(this.authority.split(",")).map(String::trim).filter(authority -> !authority.equals("")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-    }
-
-    public void addAuthority(GrantedAuthority authority) {
-        String trimmedAuthority = authority.getAuthority().trim();
-        String currentAuthority = this.authority == null ? "" : (this.authority + ",");
-        this.authority = currentAuthority + trimmedAuthority;
-    }
-
-    public void removeAuthority(GrantedAuthority authority) {
-        String auth = authority.getAuthority().trim();
-        String newAuthority = this.authority.replace(auth, "").replace(",,", "").trim();
-        this.authority = newAuthority;
     }
 
     @Override

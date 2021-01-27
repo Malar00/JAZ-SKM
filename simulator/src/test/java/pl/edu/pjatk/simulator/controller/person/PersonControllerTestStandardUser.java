@@ -1,25 +1,18 @@
-package pl.edu.pjatk.simulator.controller;
+package pl.edu.pjatk.simulator.controller.person;
 
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import pl.edu.pjatk.simulator.service.CompartmentService;
-
-import javax.transaction.Transactional;
+import pl.edu.pjatk.simulator.controller.PersonController;
+import pl.edu.pjatk.simulator.service.PersonService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,18 +22,16 @@ import static pl.edu.pjatk.simulator.security.util.SecurityConstants.TOKEN_PREFI
 @AutoConfigureMockMvc
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//@WebMvcTest(CompartmentController.class) not working ?
-public class CompartmentControllerTest {
+public class PersonControllerTestStandardUser {
 
     @MockBean
-    CompartmentService compartmentService;
+    PersonService personService;
 
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    CompartmentController compartmentController;
-
+    PersonController personController;
     private String TOKEN;
 
     @BeforeEach
@@ -48,8 +39,8 @@ public class CompartmentControllerTest {
         var response = mvc.perform(MockMvcRequestBuilders.get("/login").contentType(MediaType.APPLICATION_JSON)
                 .content("""
                            {
-                               "username":"admin",
-                               "password":"admin"
+                               "username":"user",
+                               "password":"user"
                            }
                         """)).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         String content = response.getResponse().getContentAsString();
@@ -57,60 +48,54 @@ public class CompartmentControllerTest {
         this.TOKEN = TOKEN_PREFIX + token;
     }
 
-
     @Test
-    public void postCompartment() throws Exception {
+    public void postPerson() throws Exception {
         String str = "{\n" +
-                "    \"compartment_size\": 2,\n" +
-                "    \"people\": [\n" +
-                "        {\n" +
-                "            \"destination\": 4,\n" +
-                "            \"lastname_name\": \"TestLast\",\n" +
-                "            \"first_name\": \"TestName\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
+                "    \"first_name\": \"Post\",\n" +
+                "    \"last_name\": \"Test\",\n" +
+                "    \"destination\": 5,\n" +
+                "    \"compartment\": {\n" +
+                "        \"id\": 2\n" +
+                "    }\n" +
+                "}}";
         mvc.perform(MockMvcRequestBuilders
-                .post("/compartments")
+                .post("/people")
                 .content(str)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
-                .andExpect(status().isAccepted());
+                .andExpect(status().isForbidden());
     }
 
     @Test
-    public void deleteCompartment() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.delete("/compartments/{id}", 3).header(HEADER_STRING, TOKEN))
-                .andExpect(status().isAccepted());
+    public void deletePerson() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.delete("/people/{id}", 3).header(HEADER_STRING, TOKEN))
+                .andExpect(status().isForbidden());
 
     }
 
     @Test
-    public void updateCompartment() throws Exception {
+    public void updatePerson() throws Exception {
         String str = "{\n" +
-                "    \"id\": 3,\n" +
-                "    \"compartment_size\": 2,\n" +
-                "    \"people\": [\n" +
-                "        {\n" +
-                "            \"id\": 2,\n" +
-                "            \"destination\": 4,\n" +
-                "            \"lastname_name\": \"TestLast\",\n" +
-                "            \"first_name\": \"TestName\"\n" +
-                "        }\n" +
-                "    ]\n" +
+                "    \"id\": 2,\n" +
+                "    \"first_name\": \"Post\",\n" +
+                "    \"last_name\": \"Test\",\n" +
+                "    \"destination\": 5,\n" +
+                "    \"compartment\": {\n" +
+                "        \"id\": 2\n" +
+                "    }\n" +
                 "}";
         mvc.perform(MockMvcRequestBuilders
-                .put("/compartments")
+                .put("/people")
                 .content(str)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
-                .andExpect(status().isAccepted());
+                .andExpect(status().isForbidden());
     }
 
     @Test
-    public void getTrain() throws Exception {
+    public void getPeople() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                .get("/compartments")
+                .get("/people")
                 .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
                 .andDo(print())
                 .andExpect(status().isOk());

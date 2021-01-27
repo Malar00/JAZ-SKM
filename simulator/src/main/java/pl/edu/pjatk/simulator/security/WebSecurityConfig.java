@@ -10,7 +10,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    // Every user has access to GET requests,
+    // ADMIN has sole rights to POST and DELETE,
+    // MOD can UPDATE,
+    // USER can only GET
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()

@@ -1,13 +1,203 @@
 {
 	"info": {
-		"_postman_id": "affea66a-8a16-4c82-964d-86c95aad97d2",
-		"name": "JAZ_SKM_SQL",
+		"_postman_id": "676a97ea-e448-4bef-9bad-71d6391f5152",
+		"name": "JAZ_SKM_SQL_JWT",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
+			"name": "Login admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:11111/login",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login test_user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"test_user\",\r\n    \"password\":\"test\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:11111/login",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login test_mod",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"test_mod\",\r\n    \"password\":\"test\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:11111/login",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X21vZCIsImV4cCI6MTYxMTc1NzAyMywiYXV0aG9yaXRpZXMiOlsiUk9MRV9NT0QiXX0.frRBXjaJBvq0Zmw9siCOgYMkzxUCmvDtDF-Fp7s0eoRXvdNhxNlm-XENlEfyZdBlWFOa8MUpW8PAY4rGy3YKaw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:11111/users",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"users"
+					]
+				},
+				"description": "GET CARS"
+			},
+			"response": []
+		},
+		{
+			"name": "POST user - ROLE_USER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJleHAiOjE2MTE3NTY4NjIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.4xG61XYmPCWpaRG2ahvTbT_Rxgma1TyTIGjec6VFrCApzOvwakVDoU2uud2CcdzfeXOtd2FL1J14HT4djNyyOw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test_user\",\r\n    \"password\": \"test\",\r\n    \"authority\": \"ROLE_USER\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/users",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"users"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "POST user - ROLE_MOD",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxMTc1Njg0NCwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdfQ.Vg3aatlULx9I0D7dtsF6Mnvoakfter_pcxEN4lBwN5gBe31fE03e7G9JB0FBONCRh517qKMp8MmS67CSqNv61g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test_mod\",\r\n    \"password\": \"test\",\r\n    \"authority\": \"ROLE_MOD\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:11111/users",
+					"host": [
+						"localhost"
+					],
+					"port": "11111",
+					"path": [
+						"users"
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
 			"name": "GET trains",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJleHAiOjE2MTE3NTY4NjIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdfQ.4xG61XYmPCWpaRG2ahvTbT_Rxgma1TyTIGjec6VFrCApzOvwakVDoU2uud2CcdzfeXOtd2FL1J14HT4djNyyOw",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -86,6 +276,16 @@
 		{
 			"name": "POST trains",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X21vZCIsImV4cCI6MTYxMTc1NzAyMywiYXV0aG9yaXRpZXMiOlsiUk9MRV9NT0QiXX0.frRBXjaJBvq0Zmw9siCOgYMkzxUCmvDtDF-Fp7s0eoRXvdNhxNlm-XENlEfyZdBlWFOa8MUpW8PAY4rGy3YKaw",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -114,6 +314,16 @@
 		{
 			"name": "UPDATE trains",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0X21vZCIsImV4cCI6MTYxMTc1NzAyMywiYXV0aG9yaXRpZXMiOlsiUk9MRV9NT0QiXX0.frRBXjaJBvq0Zmw9siCOgYMkzxUCmvDtDF-Fp7s0eoRXvdNhxNlm-XENlEfyZdBlWFOa8MUpW8PAY4rGy3YKaw",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {

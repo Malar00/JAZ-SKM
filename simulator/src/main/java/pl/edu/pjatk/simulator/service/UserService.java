@@ -1,7 +1,6 @@
 package pl.edu.pjatk.simulator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,7 +8,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.simulator.repository.UserRepository;
-import pl.edu.pjatk.simulator.security.User;
+import pl.edu.pjatk.simulator.model.User;
 
 import java.util.Optional;
 
@@ -23,7 +22,11 @@ public class UserService extends CrudService<User> implements UserDetailsService
     public UserService(UserRepository repository) {
         super(repository);
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        //Users hardcoded for testing purposes
         repository.save( new User("admin", passwordEncoder.encode("admin"), "ROLE_ADMIN"));
+        repository.save( new User("mod", passwordEncoder.encode("mod"), "ROLE_MOD"));
+        repository.save( new User("user", passwordEncoder.encode("user"), "ROLE_USER"));
 
     }
 

@@ -1,4 +1,4 @@
-package pl.edu.pjatk.simulator.controller;
+package pl.edu.pjatk.simulator.controller.train;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import pl.edu.pjatk.simulator.service.PersonService;
+import pl.edu.pjatk.simulator.controller.TrainController;
+import pl.edu.pjatk.simulator.service.TrainService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,16 +25,17 @@ import static pl.edu.pjatk.simulator.security.util.SecurityConstants.TOKEN_PREFI
 @AutoConfigureMockMvc
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class PersonControllerTest {
+public class TrainControllerTestAdminUser {
 
     @MockBean
-    PersonService personService;
+    TrainService trainService;
 
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    PersonController personController;
+    TrainController trainController;
+
     private String TOKEN;
 
     @BeforeEach
@@ -51,43 +53,26 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void postPerson() throws Exception {
+    public void postTrain() throws Exception {
         String str = "{\n" +
-                "    \"first_name\": \"Post\",\n" +
-                "    \"last_name\": \"Test\",\n" +
-                "    \"destination\": 5,\n" +
-                "    \"compartment\": {\n" +
-                "        \"id\": 2\n" +
-                "    }\n" +
-                "}}";
-        mvc.perform(MockMvcRequestBuilders
-                .post("/people")
-                .content(str)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
-                .andExpect(status().isAccepted());
-    }
-
-    @Test
-    public void deletePerson() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.delete("/people/{id}", 3).header(HEADER_STRING, TOKEN))
-                .andExpect(status().isAccepted());
-
-    }
-
-    @Test
-    public void updatePerson() throws Exception {
-        String str = "{\n" +
-                "    \"id\": 2,\n" +
-                "    \"first_name\": \"Post\",\n" +
-                "    \"last_name\": \"Test\",\n" +
-                "    \"destination\": 5,\n" +
-                "    \"compartment\": {\n" +
-                "        \"id\": 2\n" +
-                "    }\n" +
+                "    \"current_station\": 6,\n" +
+                "    \"going_back\": false,\n" +
+                "    \"waiting\": 1,\n" +
+                "    \"compartments\": [\n" +
+                "        {\n" +
+                "            \"compartment_size\": 2,\n" +
+                "            \"people\": [\n" +
+                "                {\n" +
+                "                    \"destination\": 4,\n" +
+                "                    \"lastname_name\": \"TestLast\",\n" +
+                "                    \"first_name\": \"TestName\"\n" +
+                "                }\n" +
+                "            ]\n" +
+                "        }\n" +
+                "    ]\n" +
                 "}";
         mvc.perform(MockMvcRequestBuilders
-                .put("/people")
+                .post("/trains")
                 .content(str)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
@@ -95,9 +80,47 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void getPeople() throws Exception {
+    public void deleteTrain() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.delete("/trains/{id}", 1).header(HEADER_STRING, TOKEN))
+                .andExpect(status().isAccepted());
+
+    }
+
+    @Test
+    public void updateTrain() throws Exception {
+        String str = "{\n" +
+                "    \"id\": 4,\n" +
+                "    \"current_station\": 6,\n" +
+                "    \"going_back\": false,\n" +
+                "    \"waiting\": 1,\n" +
+                "    \"compartments\": [\n" +
+                "        {\n" +
+                "            \"id\": 4,\n" +
+                "            \"compartment_size\": 2,\n" +
+                "            \"train_id\": 4,\n" +
+                "            \"people\": [\n" +
+                "                {\n" +
+                "                    \"id\": 4,\n" +
+                "                    \"destination\": 4,\n" +
+                "                    \"lastname_name\": \"TestLast\",\n" +
+                "                    \"first_name\": \"TestName\"\n" +
+                "                }\n" +
+                "            ]\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
         mvc.perform(MockMvcRequestBuilders
-                .get("/people")
+                .put("/trains")
+                .content(str)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
+    public void getTrain() throws Exception {
+        mvc.perform(MockMvcRequestBuilders
+                .get("/trains")
                 .accept(MediaType.APPLICATION_JSON).header(HEADER_STRING, TOKEN))
                 .andDo(print())
                 .andExpect(status().isOk());

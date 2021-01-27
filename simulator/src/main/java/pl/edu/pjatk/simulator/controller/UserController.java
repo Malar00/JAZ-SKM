@@ -1,9 +1,9 @@
-package pl.edu.pjatk.simulator.security;
+package pl.edu.pjatk.simulator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.pjatk.simulator.controller.CrudController;
+import pl.edu.pjatk.simulator.model.User;
 import pl.edu.pjatk.simulator.service.UserService;
 
 import java.util.LinkedHashMap;
